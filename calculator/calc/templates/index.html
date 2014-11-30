@@ -24,30 +24,46 @@
 </head>
 <body>
 
+<form role="form" class="form-inline" method="get" action="{% url 'index' %}">
 
-<form role="form" class="form-inline">
+    {% if showTotal == True %}
+    Total = {{ total }}
+    <br />
+    {% endif %}
+
+    {% if showCurr == True %}
+    Curr = {{ curr }}
+    Op = {{ op }}
+    <br />
+    {% endif %}
+
+
+
+    {% if init == True %}
+        <input type="hidden" name="init" value="False">
+    {% endif %}
 
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
-                <input id="inputTxt" type="text" class="form-control" id="input" placeholder="">
+                <input id="inputTxt" name="input" type="text" class="form-control" id="input" placeholder="" value="">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-1">
-            <button id="plus" type="submit" class="op btn btn-info btn-lg btn-block">+</button>
+            <button id="plus" name="op" value="sum" type="submit" class="op btn btn-info btn-lg btn-block">+</button>
         </div>
         <div class="col-md-1">
-            <button id="mult" type="submit" class="op btn btn-info btn-lg btn-block">x</button>
+            <button id="mult" name="op" value="mult"  type="submit" class="op btn btn-info btn-lg btn-block">x</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-1">
-            <button id="minus" type="submit" class="op btn btn-info btn-lg btn-block">-</button>
+            <button id="minus" name="op" value="minus"  type="submit" class="op btn btn-info btn-lg btn-block">-</button>
         </div>
         <div class="col-md-1">
-            <button id="div" type="submit" class="op btn btn-info btn-lg btn-block">/</button>
+            <button id="div" name="op" value="div"  type="submit" class="op btn btn-info btn-lg btn-block">/</button>
         </div>
 
     </div>
@@ -70,19 +86,9 @@
     <script>
 
         $(document).ready(function() {
-
-            var res=0;
-            var valA=0;
-            var valB=0;
+            //initialization
+            var res='';
             $('#inputTxt').val(res);
-
-            $(".op").click(function(e){
-                    //alert("op");
-                    valA = $('#inputTxt').val();
-                    alert(valA);
-                    e.preventDefault();
-                    return false;
-            });
         });
     </script>
 
