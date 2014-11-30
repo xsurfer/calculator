@@ -1,0 +1,92 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load staticfiles %}
+    {% bootstrap_css %}
+
+
+    {% block css %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+
+</head>
+<body>
+
+
+<form role="form" class="form-inline">
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <input id="inputTxt" type="text" class="form-control" id="input" placeholder="">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <button id="plus" type="submit" class="op btn btn-info btn-lg btn-block">+</button>
+        </div>
+        <div class="col-md-1">
+            <button id="mult" type="submit" class="op btn btn-info btn-lg btn-block">x</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <button id="minus" type="submit" class="op btn btn-info btn-lg btn-block">-</button>
+        </div>
+        <div class="col-md-1">
+            <button id="div" type="submit" class="op btn btn-info btn-lg btn-block">/</button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <button id="res" type="submit" class="btn btn-info btn-lg btn-block">=</button>
+        </div>
+    </div>
+</form>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+{% bootstrap_javascript %}
+{% block javascript %}
+
+    <script>
+
+        $(document).ready(function() {
+
+            var res=0;
+            var valA=0;
+            var valB=0;
+            $('#inputTxt').val(res);
+
+            $(".op").click(function(e){
+                    //alert("op");
+                    valA = $('#inputTxt').val();
+                    alert(valA);
+                    e.preventDefault();
+                    return false;
+            });
+        });
+    </script>
+
+{% endblock %}
+
+</body>
+</html>
