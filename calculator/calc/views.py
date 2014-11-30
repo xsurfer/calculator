@@ -62,13 +62,14 @@ def index(request):
         total = doOp( request.session['op'], float(request.session['preVal']), currVal )
         if currOp == 'eq':
             step = 0
+            showVal=False
+            showTotal=True
+            print("finished")
         else:
             step = 3
             request.session['preVal'] = total
             request.session['op'] = currOp
-    elif step == '0':   # visualizzare totale
-        showVal=False
-        showTotal=True
+
 
     template = loader.get_template('index.html')
     context = RequestContext(request, {

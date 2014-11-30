@@ -26,7 +26,6 @@
 
 <form role="form" class="form-inline" method="get" action="{% url 'index' %}">
 
-    Step: {{ step }}
     <br />
 
     {% if showVal == True %}
@@ -70,7 +69,7 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <button id="res" type="submit" class="btn btn-info btn-lg btn-block">=</button>
+            <button id="res" name="op" value="eq" type="submit" class="btn btn-info btn-lg btn-block">=</button>
         </div>
     </div>
 </form>
