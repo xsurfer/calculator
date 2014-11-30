@@ -26,22 +26,23 @@
 
 <form role="form" class="form-inline" method="get" action="{% url 'index' %}">
 
+    Step: {{ step }}
+    <br />
+
+    {% if showVal == True %}
+    Curr = {{ val }}
+    <br />
+    Op = {{ op }}
+    <br />
+    {% endif %}
+
     {% if showTotal == True %}
     Total = {{ total }}
     <br />
     {% endif %}
 
-    {% if showCurr == True %}
-    Curr = {{ curr }}
-    Op = {{ op }}
-    <br />
-    {% endif %}
+    <input type="hidden" name="step" value="{{ step }}">
 
-
-
-    {% if init == True %}
-        <input type="hidden" name="init" value="False">
-    {% endif %}
 
     <div class="row">
         <div class="col-md-2">
