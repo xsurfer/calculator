@@ -1,15 +1,23 @@
+import logging
+
 from django import forms
 
-OPERATIONS = (
-    ('sum', 'sum'),
-    ('min', 'min'),
-    ('mul', 'mul'),
-    ('div', 'div'),
-    ('equ', 'equ'),
-    ('clc', 'clc'),
-)
+from models import Calculator
+
+
+logger = logging.getLogger(__name__)
+
 
 class CalculatorForm(forms.Form):
-    input = forms.DecimalField(label='', max_digits = 10, decimal_places=3, required=True)
-    op = forms.ChoiceField(choices=OPERATIONS, required=True)
-    step = forms.IntegerField(required=True)
+    input = forms.DecimalField(label='', max_digits=999, decimal_places=4, required=False)
+    op = forms.ChoiceField(choices=Calculator.OPERATIONS, required=True)
+
+
+    def clean(self):
+        cleaned_data = super(CalculatorForm, self).clean()
+        op = cleaned_data.get("op")
+        input = cleaned_data.get("input")
+        if op != 'clc' and input == None:
+            logger.debug("validation check")
+            raise forms.ValidationError("Required field.")
+            # return cleaned_data

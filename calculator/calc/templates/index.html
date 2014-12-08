@@ -24,76 +24,84 @@
 </head>
 <body>
 
-{% if error %}
-    <div class="row" style="margin-top: 20px;">
-        <div class="col-md-2 col-md-offset-1">
-            <div class="alert alert-danger" role="alert">{{ error }}</div>
-        </div>
-    </div>
-{% endif %}
+
 
 {{ form.non_field_errors }}
 
+{% if expression %}
+<div class="row" style="margin-top: 20px;">
+    <div class="col-md-2 col-md-offset-1">
+        <p class="bg-warning text-right">{{ expression }}</p>
+    </div>
+</div>
+{% endif %}
 
-<form role="form" method="post" action="{% url 'index' %}">
-    {% csrf_token %}
+{% if error %}
+<div class="row" style="margin-top: 0px;">
+    <div class="col-md-2 col-md-offset-1">
+        <p class="bg-danger text-center">{{ error }}</p>
+    </div>
+</div>
+{% endif %}
 
-    <input type="hidden" name="step" value="{{ step }}">
 
-    <!-- INPUT -->
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-2 col-md-offset-1">
-            {{ form.input.errors }}
-            <div class="form-group">
-                <input id="inputTxt" name="input" type="number" class="form-control" value="{{ total }}" style="text-align:right;" >
+    <form role="form" method="post" action="{% url 'index' %}">
+        {% csrf_token %}
+
+        <!-- INPUT -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2 col-md-offset-1">
+                {{ form.input.errors }}
+                <div class="form-group">
+                    <input id="inputTxt" name="input" type="number" step="any" class="form-control text-right" value="{{ total }}" >
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- PLUS and MULTIPLY-->
-    <div class="row">
-        <div class="col-md-1 col-md-offset-1">
-            <button id="plus" name="op" value="sum" type="submit" class="op btn btn-info btn-lg btn-block">+</button>
-        </div>
-        <div class="col-md-1">
-            <button id="mult" name="op" value="mul"  type="submit" class="op btn btn-info btn-lg btn-block">x</button>
-        </div>
-    </div>
-
-    <!-- MINUS and DIVIDE -->
-    <div class="row" style="margin-top: 5px;">
-        <div class="col-md-1 col-md-offset-1">
-            <button id="minus" name="op" value="min"  type="submit" class="op btn btn-info btn-lg btn-block">-</button>
-        </div>
-        <div class="col-md-1">
-            <button id="div" name="op" value="div"  type="submit" class="op btn btn-info btn-lg btn-block">/</button>
-        </div>
-    </div>
-
-    <!-- EQUALS -->
-    <div class="row" style="margin-top: 5px;">
-        <div class="col-md-1 col-md-offset-1">
-            <button id="clc" name="op" value="clc"  type="submit" class="op btn btn-warning btn-lg btn-block">CLC</button>
-        </div>
-        <div class="col-md-1 ">
-            <button id="res" name="op" value="equ" type="submit" class="btn btn-success btn-lg btn-block">=</button>
+        <!-- PLUS and MULTIPLY-->
+        <div class="row">
+            <div class="col-md-1 col-md-offset-1">
+                <button id="plus" name="op" value="sum" type="submit" class="op btn btn-info btn-lg btn-block">+</button>
+            </div>
+            <div class="col-md-1">
+                <button id="mult" name="op" value="mul"  type="submit" class="op btn btn-info btn-lg btn-block">x</button>
+            </div>
         </div>
 
-    </div>
+        <!-- MINUS and DIVIDE -->
+        <div class="row" style="margin-top: 5px;">
+            <div class="col-md-1 col-md-offset-1">
+                <button id="minus" name="op" value="min"  type="submit" class="op btn btn-info btn-lg btn-block">-</button>
+            </div>
+            <div class="col-md-1">
+                <button id="div" name="op" value="div"  type="submit" class="op btn btn-info btn-lg btn-block">/</button>
+            </div>
+        </div>
+
+        <!-- EQUALS and CLEAR-->
+        <div class="row" style="margin-top: 5px;">
+            <div class="col-md-1 col-md-offset-1">
+                <button id="clc" name="op" value="clc"  type="submit" class="op btn btn-warning btn-lg btn-block">CLC</button>
+            </div>
+            <div class="col-md-1 ">
+                <button id="res" name="op" value="equ" type="submit" class="btn btn-success btn-lg btn-block">=</button>
+            </div>
+
+        </div>
 
 
-</form>
+    </form>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-{% bootstrap_javascript %}
-{% block javascript %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    {% bootstrap_javascript %}
+    {% block javascript %}
 
-{% endblock %}
+    {% endblock %}
 
 </body>
 </html>

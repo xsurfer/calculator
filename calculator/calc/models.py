@@ -1,30 +1,41 @@
+import logging
+from decimal import Decimal
 from django.db import models
 
-# Create your models here.
+
+logger = logging.getLogger(__name__)
+
+
 class Calculator(models.Model):
-    OPERATIONS = (
-        ('sum', 'sum'),
-        ('min', 'min'),
-        ('mul', 'mul'),
-        ('div', 'div'),
-        ('equ', 'equ'),
+
+    ERRORS = (
+        (0,'No errors'),
+        (1,'Division/Modulo by zero'),
     )
-    valueA = models.DecimalField(max_digits=10, decimal_places=3, default=0)
-    valueB = models.DecimalField(max_digits=10, decimal_places=3, default=0)
-    operation = models.CharField(max_length=3, choices=OPERATIONS, )
+
+    OPERATIONS = (
+        ('sum','+'),
+        ('min','-'),
+        ('mul','*'),
+        ('div','/'),
+        ('equ','='),
+        ('clc','#'),
+    )
+    expression = models.CharField(max_length=100, default='')
+
+    def add_op(self, v, op=None):
+        if self.expression is None:
+            self.expression = ''
+        self.expression += str(float(v))
+        if op:
+            self.expression += str( dict(self.OPERATIONS)[op])
+        logger.debug("expression: %s" % self.expression)
+        return self.expression
+
 
     def evaluate(self):
-        if self.operation == 'equ':
-            return (float(self.valueA), None)
-        elif self.operation == 'sum':
-            return (float(self.valueA + self.valueB), None)
-        elif self.operation == 'min':
-            return (float(self.valueA - self.valueB), None)
-        elif self.operation == 'mul':
-            return (float(self.valueA * self.valueB), None)
-        elif self.operation == 'div':
-            if self.valueB == 0:
-                print("Division by zero")
-                return (None, 'Division by zero')
-            return (float(self.valueA / self.valueB), None)
-        return 0
+        logger.debug("expression: %s" % self.expression)
+        try:
+            return (0, eval((str(self.expression))))
+        except ZeroDivisionError:
+            return (dict(self.ERRORS)[1], None)
